@@ -8,18 +8,19 @@ public class HiveMetastoreConfiguration extends AbstractConfigurationContainer {
 
     public HiveMetastoreConfiguration() {
         super("liquibase");
-        getContainer().addProperty(LOCK, Boolean.class)
+        getContainer().addProperty(LOCK, String.class)
                 .setDescription("Should Liquibase lock database while executing")
-                .setDefaultValue(true)
+                .setDefaultValue("true")
                 .addAlias("lock");
-        getContainer().addProperty(SYNC_DDL, Boolean.class)
+        getContainer().addProperty(SYNC_DDL, String.class)
                 .setDescription("Wrap every statement with SYNC_DDL")
-                .setDefaultValue(true)
+                .setDefaultValue("true")
                 .addAlias("syncDDL");
     }
 
     public boolean getLock() {
-        return getContainer().getValue(LOCK, Boolean.class);
+        String value = getContainer().getValue(LOCK, String.class);
+        return value == null || !value.equals("false");
     }
 
     public HiveMetastoreConfiguration setLock(boolean noLock) {
@@ -28,8 +29,8 @@ public class HiveMetastoreConfiguration extends AbstractConfigurationContainer {
     }
 
     public boolean getSyncDDL() {
-        return getContainer().getValue(SYNC_DDL, Boolean.class);
-    }
+        String value = getContainer().getValue(SYNC_DDL, String.class);
+        return value == null || !value.equals("false");    }
 
     public HiveMetastoreConfiguration setSyncDDL(boolean syncDdl) {
         getContainer().setValue(SYNC_DDL, Boolean.class);

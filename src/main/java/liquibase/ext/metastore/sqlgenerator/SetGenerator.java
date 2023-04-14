@@ -33,6 +33,6 @@ public class SetGenerator extends AbstractSqlGenerator<SetStatement> {
     @Override
     public Sql[] generateSql(SetStatement statement, Database database, SqlGeneratorChain sqlGeneratorChain) {
         String sql = "SET " + statement.getQueryOption() + "=" + statement.getOptionValue();
-        return new Sql[]{new UnparsedSql(sql, new Schema().getName())};
+        return new Sql[]{new UnparsedSql(sql)};
     }
 }
